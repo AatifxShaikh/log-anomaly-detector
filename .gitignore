@@ -1,0 +1,35 @@
+# Environment variables - NEVER commit this file
+.env
+
+# Node.js / Next.js
+dashboard/node_modules
+dashboard/.next
+dashboard/npm-debug.log*
+dashboard/yarn-debug.log*
+dashboard/yarn-error.log*
+dashboard/pnpm-debug.log*
+
+# Python
+analyzer/__pycache__/
+*.pyc
+.pytest_cache/
+.venv/
+venv/
+env/
+
+# Go
+# Binaries for programs and plugins
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+
+# Test binary, build with `go test -c`
+*.test
+
+# Output of the go coverage tool, specifically when run with the
+# -o option
+*.out
+
+

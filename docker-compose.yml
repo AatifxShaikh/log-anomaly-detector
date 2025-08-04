@@ -1,0 +1,41 @@
+version: '3.8'
+
+services:
+  # Message Queue
+  redis:
+    image: "redis:alpine"
+    ports:
+      - "6379:6379"
+  mongo:
+    image: mongo
+    ports:
+     - "27017:27017"
+    volumes:
+     - mongo-data:/data/db
+  # Go Log Agent
+  agent:
+    build: ./agent
+    depends_on:
+      - redis
+
+  # Python Log Analyzer
+  analyzer:
+    build: ./analyzer
+    depends_on:
+      - redis
+      - mongo  
+    environment:
+      - PYTHONUNBUFFERED=1
+
+  dashboard:
+    build: ./dashboard
+    ports:
+      - "3000:3000"
+    depends_on:
+      - mongo
+    volumes:
+      - ./dashboard:/app
+      - /app/node_modules
+    command: npm run dev  
+volumes:
+  mongo-data:
