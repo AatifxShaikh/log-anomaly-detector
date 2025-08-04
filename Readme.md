@@ -22,7 +22,7 @@ The project demonstrates a multi-language microservice architecture orchestrated
 
 ## Architecture
 
-![Architecture Diagram](https://storage.googleapis.com/gemini-prod/images/c25576a0-53be-4943-8e7c-d3c299e52701.png)
+![Architecture Diagram](./assets/Architecture.png)
 
 ---
 
