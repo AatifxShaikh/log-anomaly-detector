@@ -12,7 +12,21 @@ export interface Log {
   level: 'INFO' | 'WARNING' | 'ERROR';
   message: string;
 }
-
+export interface Anomaly {
+  _id: string;
+  timestamp: string;
+  type: string;
+  details: string;
+}
+export async function getAnomalies(): Promise<Anomaly[]> {
+  const res = await fetch('http://analyzer:8000/anomalies', {
+    cache: 'no-store',
+  });
+  if (!res.ok) {
+    throw new Error('Failed to fetch anomalies');
+  }
+  return res.json();
+}
 export async function getLogs(): Promise<Log[]> {
   const client = new MongoClient(MONGODB_URI);
   try {
@@ -36,4 +50,14 @@ export async function getLogs(): Promise<Log[]> {
   } finally {
     await client.close();
   }
+}
+export async function getLogStats(){
+  const res=await fetch("http://analyzer:8000/logs/stats",{
+    cache:'no-store',
+  });
+  if(!res.ok){
+    throw new Error("Failed to fetch log stats")
+  }
+  const stats=await res.json();
+  return stats.map((stat:any)=>({name:stat._id,count:stat.count}))
 }
